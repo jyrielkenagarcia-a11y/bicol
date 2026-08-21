@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Sign in | Bicol Dictionary</title>
+	<link rel="stylesheet" href="login design.css">
+</head>
+<body>
+	<main class="login-shell">
+		<section class="login-visual" aria-label="Bicol Dictionary introduction">
+			<a class="brand" href="home.html">Bicol<span>Dictionary</span></a>
+			<div class="visual-copy">
+				<p class="eyebrow">Welcome back</p>
+				<h1>Keep the words close.</h1>
+				<p>Return to your personal collection of Bicol words, phrases, and discoveries.</p>
+			</div>
+			<p class="visual-note">A small space for a living language.</p>
+		</section>
+
+		<section class="login-panel">
+			<div class="login-card">
+			<div class="mobile-brand"><a class="brand" href="home.html">Bicol<span>Dictionary</span></a></div>
+			<p class="eyebrow">Your dictionary</p>
+			<h2>Sign in to your account</h2>
+			<p class="subtitle">Enter your details to continue.</p>
+
+			<button class="google-button" id="googleButton" type="button"><span class="google-mark" aria-hidden="true">G</span>Continue with Google</button>
+			<div class="divider"><span>or continue with email</span></div>
+
+			<form id="loginForm" novalidate>
+				<label for="email">Email address</label>
+				<input id="email" name="email" type="email" autocomplete="email" placeholder="maria@example.com" required>
+
+				<div class="label-row">
+					<label for="password">Password</label>
+					<a href="#forgot-password">Forgot password?</a>
+				</div>
+				<div class="password-field">
+					<input id="password" name="password" type="password" autocomplete="new-password" placeholder="At least 8 characters" minlength="8" required>
+						<button class="password-toggle" type="button" data-target="password" aria-label="Show password" aria-pressed="false">Show</button>
+				</div>
+
+				<label class="remember"><input type="checkbox" name="remember"> <span>Keep me signed in</span></label>
+				<p class="form-message" id="formMessage" role="alert"></p>
+				<button class="primary-button" type="submit">Sign in <span aria-hidden="true">&#8594;</span></button>
+			</form>
+
+			<p class="account-prompt">New to Bicol Dictionary? <a href="sign in.html">Create an account</a></p>
+			</div>
+		</section>
+	</main>
+
+	<script>
+		const form = document.getElementById('loginForm');
+		const message = document.getElementById('formMessage');
+		const googleButton = document.getElementById('googleButton');
+
+		document.querySelectorAll('.password-toggle').forEach((toggle) => {
+			toggle.addEventListener('click', () => {
+				const input = document.getElementById(toggle.dataset.target);
+				const shouldShow = input.type === 'password';
+				input.type = shouldShow ? 'text' : 'password';
+				toggle.textContent = shouldShow ? 'Hide' : 'Show';
+				toggle.setAttribute('aria-label', shouldShow ? 'Hide password' : 'Show password');
+				toggle.setAttribute('aria-pressed', String(shouldShow));
+			});
+		});
+
+		googleButton.addEventListener('click', () => {
+			message.textContent = 'Google sign-in needs a Google OAuth client ID before it can connect to a real account.';
+			message.className = 'form-message info';
+		});
+
+		form.addEventListener('submit', (event) => {
+			event.preventDefault();
+			message.className = 'form-message';
+
+			if (!form.checkValidity()) {
+				message.textContent = 'Please enter your email and password.';
+				message.classList.add('error');
+				form.reportValidity();
+				return;
+			}
+
+			const savedAccount = JSON.parse(localStorage.getItem('bicolDictionaryAccount') || 'null');
+			if (!savedAccount || savedAccount.email !== form.email.value || savedAccount.password !== form.password.value) {
+				message.textContent = 'We could not find an account with those details.';
+				message.classList.add('error');
+				return;
+			}
+
+			localStorage.setItem('bicolDictionarySignedIn', 'true');
+			window.location.href = 'home.html';
+		});
+	</script>
+</body>
+</html>
