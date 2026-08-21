@@ -1,0 +1,76 @@
+:root {
+	--ink: #19332f;
+	--muted: #64736d;
+	--paper: #f7f5ee;
+	--card: #fffdf8;
+	--line: #d9ded4;
+	--green: #1f6855;
+	--green-dark: #174c40;
+	--coral: #d97359;
+	--shadow: 0 24px 70px rgba(31, 65, 55, 0.14);
+}
+
+* { box-sizing: border-box; }
+
+body {
+	margin: 0;
+	min-height: 100vh;
+	color: var(--ink);
+	background: var(--paper);
+	font-family: Georgia, 'Times New Roman', serif;
+}
+
+body::before {
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	content: '';
+	opacity: .32;
+	background-image: linear-gradient(rgba(31, 104, 85, .05) 1px, transparent 1px), linear-gradient(90deg, rgba(31, 104, 85, .05) 1px, transparent 1px);
+	background-size: 38px 38px;
+}
+
+.auth-shell { display: grid; grid-template-columns: minmax(320px, 42%) 1fr; min-height: 100vh; }
+.auth-intro { display: flex; flex-direction: column; justify-content: space-between; padding: 44px 10%; color: #f6f4e9; background: var(--green); }
+.brand { color: inherit; font-size: 1.25rem; font-weight: 700; letter-spacing: .01em; text-decoration: none; }
+.brand span { color: #f0b49a; }
+.intro-copy { max-width: 430px; margin: auto 0; }
+.eyebrow { margin: 0 0 16px; color: var(--coral); font-family: Arial, sans-serif; font-size: .72rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.auth-intro .eyebrow { color: #f0b49a; }
+h1, h2 { margin: 0; line-height: 1.08; font-weight: 400; }
+h1 { font-size: clamp(2.6rem, 4vw, 4.5rem); }
+.intro-copy > p:last-child { max-width: 330px; margin: 28px 0 0; color: #c9dbd0; font: 1rem/1.7 Arial, sans-serif; }
+.intro-note { color: #b7d0c4; font: .8rem Arial, sans-serif; }
+.auth-panel { display: grid; place-items: center; padding: 42px 7%; }
+.form-wrap { width: min(100%, 450px); padding: 46px; background: var(--card); box-shadow: var(--shadow); }
+.mobile-brand { display: none; }
+h2 { font-size: clamp(2rem, 3vw, 2.8rem); }
+.form-subtitle { margin: 12px 0 30px; color: var(--muted); font: .95rem/1.5 Arial, sans-serif; }
+form { display: grid; gap: 9px; }
+label { margin-top: 8px; font: 700 .78rem Arial, sans-serif; }
+input[type='text'], input[type='email'], input[type='password'] { width: 100%; padding: 14px 15px; border: 1px solid var(--line); border-radius: 2px; outline: none; color: var(--ink); background: #fff; font: .95rem Arial, sans-serif; }
+input:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(31, 104, 85, .12); }
+.password-field { position: relative; }
+.password-field input { padding-right: 78px; }
+.password-toggle { position: absolute; top: 50%; right: 10px; display: inline-flex; width: 48px; height: 30px; align-items: center; justify-content: center; flex: 0 0 48px; padding: 0; border: 0; color: var(--green); background: none; font: 700 .72rem Arial, sans-serif; cursor: pointer; transform: translateY(-50%); }
+.consent { display: flex; gap: 9px; align-items: flex-start; margin: 16px 0 4px; color: var(--muted); font-weight: 400; line-height: 1.45; }
+.consent input { width: 16px; height: 16px; margin: 1px 0 0; accent-color: var(--green); }
+a { color: var(--green); font-weight: 700; }
+.form-message { min-height: 20px; margin: 4px 0 0; font: .82rem Arial, sans-serif; }
+.form-message.error { color: #b24837; }
+.form-message.success { color: var(--green); }
+.primary-button { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; padding: 15px 17px; border: 0; border-radius: 2px; color: #fff; background: var(--green-dark); font: 700 .86rem Arial, sans-serif; cursor: pointer; }
+.primary-button:hover { background: var(--green); }
+.primary-button span { font-size: 1.25rem; line-height: .7; }
+.account-prompt { margin: 25px 0 0; text-align: center; color: var(--muted); font: .85rem Arial, sans-serif; }
+
+@media (max-width: 760px) {
+	.auth-shell { display: block; }
+	.auth-intro { min-height: 290px; padding: 28px 8%; }
+	.intro-copy { margin: 52px 0 0; }
+	h1 { font-size: 2.45rem; }
+	.intro-copy > p:last-child, .intro-note { display: none; }
+	.auth-panel { padding: 0 6% 42px; }
+	.form-wrap { margin-top: -22px; padding: 30px 24px; }
+	.mobile-brand { display: block; margin-bottom: 34px; color: var(--green); }
+}
